@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="banner.jpg" alt="cryn4j banner" width="100%"/>
+</p>
+
 # cryn4j — Distributed Rate-Limiting Library for Java
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.shubhambasak/cryn4j-core.svg?label=Maven%20Central)](https://search.maven.org/artifact/io.github.shubhambasak/cryn4j-core)
