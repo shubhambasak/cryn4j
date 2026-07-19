@@ -6,24 +6,24 @@ All claims below are verified against the competitor source code (see `research-
 
 | Feature | cryn4j | Bucket4j | Resilience4j | SCG |
 |---------|--------|----------|--------------|-----|
-| Token bucket | ✅ | ✅ | ✅ (fixed-cycle) | ✅ |
-| Separate burst capacity | ✅ | ✅ | ❌ (coupled) | ✅ |
-| Integer-exact arithmetic | ✅ | ✅ | ✅ | ❌ (double) |
-| Nanosecond precision | ✅ | ✅ | ✅ | ❌ (seconds) |
-| Rounding-error carry | ✅ | ✅ | ❌ | ❌ |
-| Composite multi-limit | ✅ | ✅ | ❌ | ❌ |
-| Lock-free local CAS | ✅ | ✅ | ✅ | n/a |
-| Reservation (negative permits) | ✅ | ✅ | ✅ | ❌ |
-| Distributed mode | ✅ | ✅ | ❌ | ✅ |
-| Single-RTT atomic sync | ✅ | ❌ (2-RTT CAS) | n/a | ✅ |
-| Local serving (0 RTT hot path) | ✅ | ✅ (optional) | n/a | ❌ |
-| Deterministic accuracy bounds | ✅ | ❌ (statistical) | n/a | ✅ |
-| Adaptive warmup | ✅ | ❌ | ❌ | ❌ |
-| Configurable fail mode | ✅ | ✅ | n/a | ❌ (hardcoded OPEN) |
-| Bounded key cache | ✅ | ✅ (Caffeine module) | n/a | ❌ |
-| Reactive API | ✅ | ✅ | ❌ | ✅ |
-| Sync/blocking API | ✅ | ✅ | ✅ | ❌ |
-| Zero-dep core | ✅ | ✅ | ❌ | n/a |
+| Token bucket | YES | YES | YES (fixed-cycle) | YES |
+| Separate burst capacity | YES | YES | N/A (coupled) | YES |
+| Integer-exact arithmetic | YES | YES | YES | N/A (double) |
+| Nanosecond precision | YES | YES | YES | N/A (seconds) |
+| Rounding-error carry | YES | YES | N/A | N/A |
+| Composite multi-limit | YES | YES | N/A | N/A |
+| Lock-free local CAS | YES | YES | YES | n/a |
+| Reservation (negative permits) | YES | YES | YES | N/A |
+| Distributed mode | YES | YES | N/A | YES |
+| Single-RTT atomic sync | YES | N/A (2-RTT CAS) | n/a | YES |
+| Local serving (0 RTT hot path) | YES | YES (optional) | n/a | N/A |
+| Deterministic accuracy bounds | YES | N/A (statistical) | n/a | YES |
+| Adaptive warmup | YES | N/A | N/A | N/A |
+| Configurable fail mode | YES | YES | n/a | N/A (hardcoded OPEN) |
+| Bounded key cache | YES | YES (Caffeine module) | n/a | N/A |
+| Reactive API | YES | YES | N/A | YES |
+| Sync/blocking API | YES | YES | YES | N/A |
+| Zero-dep core | YES | YES | N/A | n/a |
 
 ## Distributed path comparison
 
@@ -32,10 +32,10 @@ All claims below are verified against the competitor source code (see `research-
 | RTT per request (steady) | 0 (local lease) | 0 (delay mode) | 1 |
 | RTT per sync | 1 (atomic Lua) | 2 (GET + CAS-EVAL) | n/a (per request) |
 | Accuracy | Provably 0 over-admit | Statistical, O(N×threshold) | Exact (per request) |
-| Server-authoritative time | ✅ (µs) | ❌ (client clock) | ✅ (seconds only) |
+| Server-authoritative time | YES (µs) | N/A (client clock) | YES (seconds only) |
 | Sync payload | Scalars (3 longs) | Full state blob (bytes) | 2 scalars |
-| Cluster hash-tag keying | ✅ | ✅ | ✅ |
-| TTL auto-expiry | ✅ | configurable | ✅ |
+| Cluster hash-tag keying | YES | YES | YES |
+| TTL auto-expiry | YES | configurable | YES |
 
 ## Memory comparison
 

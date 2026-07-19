@@ -20,11 +20,11 @@ Rate limiting in a distributed system requires trading off three things:
 
 | Library | Accuracy | Few calls | Low latency | Distributed |
 |---------|----------|-----------|-------------|-------------|
-| Bucket4j (raw) | ✅ | ❌ (2 RTT + retry) | ❌ | ✅ |
-| Bucket4j (optimized) | ⚠️ statistical | ✅ | ✅ | ✅ |
-| Spring Cloud Gateway | ✅ | ❌ (every request) | ✅/request | ✅ |
-| Resilience4j | n/a | n/a | ✅ | ❌ |
-| **cryn4j** | **✅ provable** | **✅ ~1/lease** | **✅ 0 RTT local** | **✅** |
+| Bucket4j (raw) | YES | N/A (2 RTT + retry) | N/A | YES |
+| Bucket4j (optimized) | PARTIAL (statistical) | YES | YES | YES |
+| Spring Cloud Gateway | YES | N/A (every request) | YES/request | YES |
+| Resilience4j | n/a | n/a | YES | N/A |
+| **cryn4j** | **YES (provable)** | **YES (~1/lease)** | **YES (0 RTT local)** | **YES** |
 
 ## How cryn4j solves it
 

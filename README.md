@@ -187,15 +187,15 @@ and bounded memory use.
 
 | | cryn4j | Bucket4j | Spring Cloud Gateway | Resilience4j |
 |---|:---:|:---:|:---:|:---:|
-| Distributed support | ✅ | ✅ | ✅ | ❌ |
+| Distributed support | YES | YES | YES | N/A |
 | Redis calls per request | ~1 / **lease batch** | 2 / request | 1 / request | — |
-| Provable accuracy | ✅ formal | ⚠️ statistical | ✅ | — |
-| Fail modes | ✅ 3 modes | ❌ | ❌ | — |
-| Integer arithmetic | ✅ | ✅ | ❌ float | ❌ float |
-| 0-RTT local fast path | ✅ | ❌ | ❌ | ✅ (local only) |
-| Async API | ✅ | ✅ | ✅ | ✅ |
-| Reactive (Reactor) | ✅ | ✅ | ✅ | ✅ |
-| Adaptive warmup | ✅ | ❌ | ❌ | ❌ |
+| Provable accuracy | YES (formal) | PARTIAL (statistical) | YES | — |
+| Fail modes | YES (3 modes) | N/A | N/A | — |
+| Integer arithmetic | YES | YES | N/A (float) | N/A (float) |
+| 0-RTT local fast path | YES | N/A | N/A | YES (local only) |
+| Async API | YES | YES | YES | YES |
+| Reactive (Reactor) | YES | YES | YES | YES |
+| Adaptive warmup | YES | N/A | N/A | N/A |
 
 Full analysis with benchmarks: [Comparison wiki page](https://github.com/shubhambasak/cryn4j/wiki/Comparison).
 
