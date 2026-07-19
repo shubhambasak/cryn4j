@@ -18,3 +18,5 @@ target/
 .DS_Store
 .testcontainers.properties
 .jqwik-database
+.flattened-pom.xml
+dependency-reduced-pom.xml

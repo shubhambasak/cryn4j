@@ -32,13 +32,6 @@
             <organization>cryn4j</organization>
             <organizationUrl>https://github.com/shubhambasak/cryn4j</organizationUrl>
         </developer>
-        <developer>
-            <id>vaishnavi</id>
-            <name>Vaishnavi</name>
-            <email>vozloafed@gmail.com</email>
-            <organization>cryn4j</organization>
-            <organizationUrl>https://github.com/shubhambasak/cryn4j</organizationUrl>
-        </developer>
     </developers>
 
     <scm>
