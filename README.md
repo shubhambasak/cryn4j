@@ -13,33 +13,137 @@ one atomic Redis Lua `EVAL` (1 RTT), serves requests locally from that lease at 
 lock-free CAS, and proactively renews in the background before the lease runs dry.
 The result: live requests never wait for the network, and the cluster never over-admits.
 
-## Get dependency
+## Modules
 
-cryn4j is available on [Maven Central](https://search.maven.org/artifact/io.github.shubhambasak/cryn4j-core)
-and [GitHub Packages](https://github.com/shubhambasak/cryn4j/packages):
+All modules are published to [Maven Central](https://search.maven.org/search?q=g:io.github.shubhambasak)
+and [GitHub Packages](https://github.com/shubhambasak/cryn4j/packages).
+Current version: **1.0.0**. GroupId: `io.github.shubhambasak`.
 
-#### Maven
+### Core — required by all modules
+
+| Module | Description |
+|--------|-------------|
+| `cryn4j-core` | Algorithm engine, local limiter, lease engine, distributed SPI. Zero runtime dependencies. |
+
 ```xml
-<!-- Core (required) -->
 <dependency>
   <groupId>io.github.shubhambasak</groupId>
   <artifactId>cryn4j-core</artifactId>
   <version>1.0.0</version>
 </dependency>
+```
+```kotlin
+implementation("io.github.shubhambasak:cryn4j-core:1.0.0")
+```
 
-<!-- Pick one backend for distributed mode (optional) -->
+---
+
+### Redis backends — pick one for distributed mode
+
+| Module | Client | Async | Cluster |
+|--------|--------|:-----:|:-------:|
+| `cryn4j-redis-lettuce` | Lettuce (Netty) | YES | YES |
+| `cryn4j-redis-jedis` | Jedis | NO | YES |
+
+```xml
+<!-- Async / reactive stacks (WebFlux, Netty, Vert.x) -->
 <dependency>
   <groupId>io.github.shubhambasak</groupId>
   <artifactId>cryn4j-redis-lettuce</artifactId>
   <version>1.0.0</version>
 </dependency>
+
+<!-- Blocking / servlet stacks (Spring MVC, Jakarta EE) -->
+<dependency>
+  <groupId>io.github.shubhambasak</groupId>
+  <artifactId>cryn4j-redis-jedis</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+```kotlin
+implementation("io.github.shubhambasak:cryn4j-redis-lettuce:1.0.0") // async
+implementation("io.github.shubhambasak:cryn4j-redis-jedis:1.0.0")   // blocking
 ```
 
-#### Gradle (Kotlin DSL)
+---
+
+### Other distributed backends — pick one (or none)
+
+| Module | Store | Async | Notes |
+|--------|-------|:-----:|-------|
+| `cryn4j-hazelcast` | Hazelcast IMap | YES | Best for Hazelcast-native stacks |
+| `cryn4j-mongodb` | MongoDB | YES | Uses atomic `findAndModify` |
+| `cryn4j-postgresql` | PostgreSQL | NO | Uses advisory locks |
+
+```xml
+<dependency>
+  <groupId>io.github.shubhambasak</groupId>
+  <artifactId>cryn4j-hazelcast</artifactId>
+  <version>1.0.0</version>
+</dependency>
+
+<dependency>
+  <groupId>io.github.shubhambasak</groupId>
+  <artifactId>cryn4j-mongodb</artifactId>
+  <version>1.0.0</version>
+</dependency>
+
+<dependency>
+  <groupId>io.github.shubhambasak</groupId>
+  <artifactId>cryn4j-postgresql</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
 ```kotlin
-implementation("io.github.shubhambasak:cryn4j-core:1.0.0")
-// Pick one backend for distributed mode (optional)
-implementation("io.github.shubhambasak:cryn4j-redis-lettuce:1.0.0")
+implementation("io.github.shubhambasak:cryn4j-hazelcast:1.0.0")
+implementation("io.github.shubhambasak:cryn4j-mongodb:1.0.0")
+implementation("io.github.shubhambasak:cryn4j-postgresql:1.0.0")
+```
+
+---
+
+### Local cache backend — for sticky / single-node key scenarios
+
+| Module | Store | Notes |
+|--------|-------|-------|
+| `cryn4j-caffeine` | Caffeine | W-TinyLFU eviction, bounded memory, zero network |
+
+```xml
+<dependency>
+  <groupId>io.github.shubhambasak</groupId>
+  <artifactId>cryn4j-caffeine</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+```kotlin
+implementation("io.github.shubhambasak:cryn4j-caffeine:1.0.0")
+```
+
+---
+
+### Optional integrations — add any combination
+
+| Module | Purpose |
+|--------|---------|
+| `cryn4j-micrometer` | Metrics: allowed/denied counters, available-tokens gauge, lease-renew timer |
+| `cryn4j-reactor` | Reactor `Mono` / `Flux` adapters for non-blocking consume |
+
+```xml
+<dependency>
+  <groupId>io.github.shubhambasak</groupId>
+  <artifactId>cryn4j-micrometer</artifactId>
+  <version>1.0.0</version>
+</dependency>
+
+<dependency>
+  <groupId>io.github.shubhambasak</groupId>
+  <artifactId>cryn4j-reactor</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+```kotlin
+implementation("io.github.shubhambasak:cryn4j-micrometer:1.0.0")
+implementation("io.github.shubhambasak:cryn4j-reactor:1.0.0")
 ```
 
 ## Quick start
